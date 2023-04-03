@@ -6,24 +6,23 @@ import {
 } from "./TrackShipmentStyle";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchDetails } from "../../Redux Store/shipmentSlice";
+import { useTranslation } from 'react-i18next'
 
 const TrackShipment = () => {
+  const { t } = useTranslation();
+
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const [trackNum, setTrackNum] = useState("");
-  // use the redux store to get shipment detail
-  const shipmentDetail = useSelector((state)=>state.shipmentDetail);
-  console.log(shipmentDetail)
+  // use the redux store to get shipment detail  
   const dispatch = useDispatch();
 
   const handleSearch =  ()=>{
     dispatch(fetchDetails(trackNum));
-    console.log(trackNum);
-    console.log(shipmentDetail);
-    setTrackNum("");
-
+    // setTrackNum("");
+    handleCloseUserMenu();
   }
 
   const handleOpenUserMenu = (event) => {
@@ -44,7 +43,7 @@ const TrackShipment = () => {
         className="mx-5"
         onClick={handleOpenUserMenu}
       >
-        Track Shipment
+        {t("Track Shipment")}
         <svg
           width="0.8rem"
           height="0.8rem"
@@ -80,7 +79,7 @@ const TrackShipment = () => {
         onClose={handleCloseUserMenu}
       >
         <div className="d-flex flex-column p-3 ">
-          <p className="text-secondary">Track your shipment</p>
+          <p className="text-secondary">{t("Track your shipment")}</p>
 
           <Search>
             <Button
