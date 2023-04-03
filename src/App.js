@@ -1,10 +1,30 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next'
 import Navbar from './component/Navbar/Navbar';
-import ShipmentDetail from './component/ShipmentDetail/ShipmentDetail';
-import Home from './Home/Home';
-
-
+import Home from './component/Home/Home';
+import { ThemeProvider } from '@emotion/react';
+import { createTheme } from "@mui/material/styles";
+let theme = createTheme({
+	typography: {
+	  fontFamily: ["Cairo", "sans-serif"].join(","),
+	  fontSize: 16,
+	  // fontWeightRegular: 400,
+	  fontWeight: 700,
+	  color: "red",
+	},
+	components: {
+	  // Name of the component
+	  MuiButton: {
+		styleOverrides: {
+		  // Name of the slot
+		  root: {
+			// Some CSS
+			fontWeight: "700",
+		  },
+		},
+	  },
+	},
+  });
 // Contains the value and text for the options
 const languages = [
 	{ value: '', text: "Options" },
@@ -29,9 +49,10 @@ function App() {
 
 	return (
 		<div className="App">
-
-    <Navbar></Navbar>
+<ThemeProvider theme={theme}>
+<Navbar></Navbar>
     <Home></Home>
+</ThemeProvider>
 		</div>
 	);
 }

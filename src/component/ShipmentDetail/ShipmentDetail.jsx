@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import "./ShipmentDetail.css"
 import { List, ListItem } from '@mui/material';
-import ProgressBar from '../../ProgressBar/ProgressBar';
+import ProgressBar from '../ProgressBar/ProgressBar';
 
 const bull = (
   <Box

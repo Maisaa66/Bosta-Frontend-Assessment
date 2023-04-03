@@ -10,8 +10,7 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import "./Navbar.css";
-import { createTheme } from "@mui/material/styles";
-import { ThemeProvider } from "@emotion/react";
+
 
 import Language from "../Language/Language";
 import TrackShipment from "../TrackShipment/TrackShipment";
@@ -19,27 +18,27 @@ import Logo from "../Logo/Logo";
 const pages = ["Home", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-let theme = createTheme({
-  typography: {
-    fontFamily: ["Cairo", "sans-serif"].join(","),
-    fontSize: 16,
-    // fontWeightRegular: 400,
-    fontWeight: 700,
-    color: "red",
-  },
-  components: {
-    // Name of the component
-    MuiButton: {
-      styleOverrides: {
-        // Name of the slot
-        root: {
-          // Some CSS
-          fontWeight: "700",
-        },
-      },
-    },
-  },
-});
+// let theme = createTheme({
+//   typography: {
+//     fontFamily: ["Cairo", "sans-serif"].join(","),
+//     fontSize: 16,
+//     // fontWeightRegular: 400,
+//     fontWeight: 700,
+//     color: "red",
+//   },
+//   components: {
+//     // Name of the component
+//     MuiButton: {
+//       styleOverrides: {
+//         // Name of the slot
+//         root: {
+//           // Some CSS
+//           fontWeight: "700",
+//         },
+//       },
+//     },
+//   },
+// });
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -58,7 +57,7 @@ function ResponsiveAppBar() {
   const handleHover = () => {};
 
   return (
-    <ThemeProvider theme={theme}>
+    // <ThemeProvider theme={theme}>
       <AppBar
         position="static"
         color="transparent"
@@ -168,7 +167,7 @@ function ResponsiveAppBar() {
           </Toolbar>
         </Container>
       </AppBar>
-    </ThemeProvider>
+    // </ThemeProvider>
   );
 }
 export default ResponsiveAppBar;
