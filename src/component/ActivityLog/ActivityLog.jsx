@@ -52,9 +52,13 @@ export default function ActivityLog() {
   let newData = [];
   useEffect(()=>{
     if(shipmentDetail){
-      newData=transitEvents;
+
+      newData=[...transitEvents];
+
       let previousHub = shipmentDetail.provider;
+
       for(let i=0;i<newData.length;i++){
+        newData[i]=JSON.parse(JSON.stringify(newData[i]));
         if(newData[i].hub){
           previousHub=newData[i].hub;
         }
@@ -89,7 +93,7 @@ export default function ActivityLog() {
             <StyledTableCell  >Branch</StyledTableCell>
             <StyledTableCell >Date</StyledTableCell>
             <StyledTableCell >Time</StyledTableCell>
-            <StyledTableCell >Detail</StyledTableCell>
+            <StyledTableCell >Details</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
