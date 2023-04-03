@@ -10,37 +10,18 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import "./Navbar.css";
-
-
 import Language from "../Language/Language";
 import TrackShipment from "../TrackShipment/TrackShipment";
 import Logo from "../Logo/Logo";
-const pages = ["Home", "Pricing", "Blog"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+import { useTranslation } from 'react-i18next'
 
-// let theme = createTheme({
-//   typography: {
-//     fontFamily: ["Cairo", "sans-serif"].join(","),
-//     fontSize: 16,
-//     // fontWeightRegular: 400,
-//     fontWeight: 700,
-//     color: "red",
-//   },
-//   components: {
-//     // Name of the component
-//     MuiButton: {
-//       styleOverrides: {
-//         // Name of the slot
-//         root: {
-//           // Some CSS
-//           fontWeight: "700",
-//         },
-//       },
-//     },
-//   },
-// });
+
 
 function ResponsiveAppBar() {
+
+  const { t } = useTranslation();
+  const pages = [t("Home"), t("Pricing"), t("Blog")];
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -53,8 +34,6 @@ function ResponsiveAppBar() {
   };
 
 
-
-  const handleHover = () => {};
 
   return (
     // <ThemeProvider theme={theme}>
@@ -102,7 +81,7 @@ function ResponsiveAppBar() {
                   }}
                   className="signup"
                 >
-                  Sign Up
+                  {t('Sign Up')}
                 </Button>
               
 
@@ -159,7 +138,7 @@ function ResponsiveAppBar() {
                   }}
                   className="signup"
                 >
-                  Sign Up
+                  {t('Sign Up')}
                 </Button>
                 <Language mdScreen={false}></Language>
               </Menu>
