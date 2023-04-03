@@ -10,8 +10,9 @@ import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import { FaBoxOpen } from "react-icons/fa";
 import HowToRegIcon from '@mui/icons-material/HowToReg';
+import { useSelector } from 'react-redux';
 
-const QontoConnector = styled(StepConnector)(({ theme }) => ({
+const QontoConnector = styled(StepConnector)(({ theme, stepper_color }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
     top: 10,
     left: 'calc(-50% + 16px)',
@@ -19,12 +20,12 @@ const QontoConnector = styled(StepConnector)(({ theme }) => ({
   },
   [`&.${stepConnectorClasses.active}`]: {
     [`& .${stepConnectorClasses.line}`]: {
-      borderColor: '#3CCF4E',
+      borderColor: stepper_color,
     },
   },
   [`&.${stepConnectorClasses.completed}`]: {
     [`& .${stepConnectorClasses.line}`]: {
-      borderColor: '#3CCF4E',
+      borderColor: stepper_color,
     },
   },
   [`& .${stepConnectorClasses.line}`]: {
@@ -34,16 +35,16 @@ const QontoConnector = styled(StepConnector)(({ theme }) => ({
   },
 }));
 
-const QontoStepIconRoot = styled('div')(({ theme, ownerState }) => ({
+const QontoStepIconRoot = styled('div')(({ theme, ownerState, iconsColor }) => ({
   color: theme.palette.mode === 'dark' ? theme.palette.grey[700] : '#eaeaf0',
   display: 'flex',
   height: 22,
   alignItems: 'center',
   ...(ownerState.active && {
-    color: '#3CCF4E',
+    color: iconsColor,
   }),
   '& .QontoStepIcon-completedIcon': {
-    color: '#3CCF4E',
+    color: iconsColor,
     zIndex: 1,
     fontSize: 18,
   },
@@ -56,7 +57,7 @@ const QontoStepIconRoot = styled('div')(({ theme, ownerState }) => ({
 }));
 
 function QontoStepIcon(props) {
-  const { active, completed, className } = props;
+  const { active, completed, className, iconsColor } = props;
   const icons = {
     1: <FaBoxOpen />,
     2: <FaBoxOpen />,
@@ -64,7 +65,7 @@ function QontoStepIcon(props) {
     4: <HowToRegIcon />,
   };
   return (
-    <QontoStepIconRoot ownerState={{ active }} className={className}>
+    <QontoStepIconRoot ownerState={{ active }} className={className} iconsColor={iconsColor}>
       {completed ? (
         <Check className="QontoStepIcon-completedIcon" />
       ) : (
@@ -93,12 +94,30 @@ QontoStepIcon.propTypes = {
 const steps = ['Order is created', 'Order recieved from the shipper', 'Order is out for delivery',"Order is deliverd"];
 
 export default function ProgressBar() {
+  let activeStep=0;
+  let color="#eaeaf0"
+  const shipmentDetail = useSelector((state)=>state.shipmentDetail);
+  
+  const state = shipmentDetail.CurrentStatus.state;
+  if(state==="DELIVERED"){
+    activeStep=4;
+    color="#3CCF4E";
+  }
+  else if (state==="CANCELLED" || state==="NOT_YET_SHIPPED"){
+    // eslint-disable-next-line no-unused-vars
+    activeStep=2;
+    if(state==="CANCELLED")
+    {color="#e30613"}
+    else{
+      color="#FFD93D"
+    }
+  }
   return (
     <Stack sx={{ width: '100%' }} spacing={4}>
-      <Stepper alternativeLabel activeStep={1} connector={<QontoConnector />}>
+      <Stepper alternativeLabel activeStep={activeStep} connector={<QontoConnector stepper_color={color}/>}>
         {steps.map((label) => (
           <Step key={label}>
-            <StepLabel StepIconComponent={QontoStepIcon}>{label}</StepLabel>
+              <StepLabel StepIconComponent={(props) => <QontoStepIcon {...props} iconsColor={color} />}>{label}</StepLabel>
           </Step>
         ))}
       </Stepper>
