@@ -1,8 +1,11 @@
 import React from "react";
 import { Typography } from "@mui/material";
 import Complain from "../Complain/Complain";
+import { useTranslation } from 'react-i18next'
 
 const ClientDetail = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="d-flex flex-column">
       <div id="addressDetail" className="mb-3">
@@ -11,13 +14,13 @@ const ClientDetail = () => {
           id="tableTitle"
           component="div"
         >
-          Delivery address
+          {t("Delivery address")}
         </Typography>
         <Typography
           sx={{ backgroundColor: "rgba(0, 0, 0, 0.04)", p: 3, borderRadius: 4 }}
           color="#002B5B"
         >
-          Address Lorem ipsum dolor sit amet consectetur adipisicing elit.
+         {t('Imbaba, Talaat Harb Street, Al Omal City, next to Al Prince, House 17, Block 22, Giza')}
         </Typography>
       </div>
 
