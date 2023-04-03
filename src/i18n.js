@@ -21,4 +21,7 @@ i18next
     backend: {
       loadPath: loadPath
     }
-  })
+  });
+
+
+  export default i18next;
