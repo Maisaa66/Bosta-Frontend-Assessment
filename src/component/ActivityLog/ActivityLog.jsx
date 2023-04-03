@@ -8,8 +8,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Typography } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import {  useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -31,19 +32,21 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
+// function createData(name, calories, fat, carbs, protein) {
+//   return { name, calories, fat, carbs, protein };
+// }
 
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+// const rows = [
+//   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+//   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+//   createData('Eclair', 262, 16.0, 24, 6.0),
+//   createData('Cupcake', 305, 3.7, 67, 4.3),
+//   createData('Gingerbread', 356, 16.0, 49, 3.9),
+// ];
 
 export default function ActivityLog() {
+  const { t , i18n} = useTranslation();
+
   const [data, setData] = React.useState([])
   const shipmentDetail = useSelector((state)=>state.shipmentDetail);
 
@@ -84,25 +87,25 @@ export default function ActivityLog() {
           component="div"
           
         >
-          Activity Log
+         {t("Shipment Details")}
         </Typography>
-<TableContainer component={Paper} sx={{borderRadius:"15px"}}>
-      <Table sx={{ minWidth: 700}} aria-label="customized table">
+<TableContainer component={Paper} sx={{borderRadius:"15px"}} dir="rtl">
+      <Table sx={{ minWidth: 700}} aria-label="customized table" dir="rtl">
         <TableHead>
           <TableRow sx={{color:"red"}}>
-            <StyledTableCell  >Branch</StyledTableCell>
-            <StyledTableCell >Date</StyledTableCell>
-            <StyledTableCell >Time</StyledTableCell>
-            <StyledTableCell >Details</StyledTableCell>
+            <StyledTableCell >{t(`Branch`)}</StyledTableCell>
+            <StyledTableCell >{t("Date")}</StyledTableCell>
+            <StyledTableCell >{t("Time")}</StyledTableCell>
+            <StyledTableCell >{t("Details")}</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {data.map((row) => (
             <StyledTableRow  key={row.timestamp}>
-              <StyledTableCell >{row.hub}</StyledTableCell>
-              <StyledTableCell >{new Date(row.timestamp).toLocaleDateString()}</StyledTableCell>
-              <StyledTableCell >{new Date(row.timestamp).toLocaleTimeString()}</StyledTableCell>
-              <StyledTableCell >{row.state.split("_").join(" ")}</StyledTableCell>
+              <StyledTableCell >{t(`${row.hub}`)}</StyledTableCell>
+              <StyledTableCell >{t(`${new Date(row.timestamp).toLocaleDateString()}`)}</StyledTableCell>
+              <StyledTableCell >{t(`${new Date(row.timestamp).toLocaleTimeString()}`)}</StyledTableCell>
+              <StyledTableCell >{t(`${row.state.split("_").join(" ")}`)}</StyledTableCell>
               {/* <StyledTableCell >{row.protein}</StyledTableCell> */}
             </StyledTableRow>
           ))}
