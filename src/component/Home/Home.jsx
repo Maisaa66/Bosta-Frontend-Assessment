@@ -17,12 +17,13 @@ const Home = () => {
             </div>
 
             <div className='row my-5'>
-                <div className='col-8 '>
+                <div className='col-md-8 col-sm-12 '>
              
                 <ActivityLog></ActivityLog>
                 
                 </div>
-                <div className='col-4'>
+
+                <div className='col-md-4 col-sm-12 mt-sm-5 mt-md-0'>
                     <ClientDetail></ClientDetail>
                 </div>
             </div>
