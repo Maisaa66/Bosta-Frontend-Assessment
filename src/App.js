@@ -4,6 +4,9 @@ import Navbar from './component/Navbar/Navbar';
 import Home from './component/Home/Home';
 import { ThemeProvider } from '@emotion/react';
 import { createTheme } from "@mui/material/styles";
+import { useSelector } from 'react-redux';
+
+
 let theme = createTheme({
 	typography: {
 	  fontFamily: ["Cairo", "sans-serif"].join(","),
@@ -33,6 +36,8 @@ const languages = [
 ]
 
 function App() {
+	
+	const shipmentDetail = useSelector((state)=>state.shipmentDetail);
 
 	// It is a hook imported from 'react-i18next'
   const { t, i18n } = useTranslation();
@@ -51,7 +56,7 @@ function App() {
 		<div className="App">
 <ThemeProvider theme={theme}>
 <Navbar></Navbar>
-    <Home></Home>
+    {shipmentDetail && <Home></Home>}
 </ThemeProvider>
 		</div>
 	);
