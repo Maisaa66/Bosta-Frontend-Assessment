@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next'
 import Navbar from './component/Navbar/Navbar';
+import ShipmentDetail from './component/ShipmentDetail/ShipmentDetail';
+import Home from './Home/Home';
 
 
 // Contains the value and text for the options
@@ -29,6 +31,7 @@ function App() {
 		<div className="App">
 
     <Navbar></Navbar>
+    <Home></Home>
 		</div>
 	);
 }
