@@ -7,13 +7,18 @@ import { BrowserRouter } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
 import "../node_modules/bootstrap/dist/css/bootstrap.rtl.min.css";
 import "./index.css";
+import { Provider } from 'react-redux';
+import store from './Redux Store/store';
+import LoadingScreen from './component/loadingScreen/LoadingScreen';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<React.StrictMode>
-		<Suspense fallback="...loading">
+		<Provider store={store}>
+		<Suspense fallback={<LoadingScreen></LoadingScreen>}>
 			<App />
 		</Suspense>
+		</Provider>
 	</React.StrictMode>
 );
 
