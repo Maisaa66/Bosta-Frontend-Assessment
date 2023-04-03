@@ -22,10 +22,14 @@ export default function ShipmentDetail() {
   const shipmentDetail = useSelector((state)=>state.shipmentDetail);
 
   const dateStamp = new Date(shipmentDetail.CurrentStatus.timestamp);
-  const promisedDate = new Date(shipmentDetail.PromisedDate);
-  console.log(promisedDate);
+  let estimatedArrival="No due date";
+  if(shipmentDetail.PromisedDate){
+    const promisedDate = new Date(shipmentDetail.PromisedDate);
+     estimatedArrival = [promisedDate.getDate(),promisedDate.toLocaleString('en-us', {weekday: 'long'}),promisedDate.getFullYear() ].join(" ") ;
+
+  }
+  console.log(estimatedArrival);
   const timeStamp =[dateStamp.toLocaleString('en-us', {weekday: 'long'}), dateStamp.toLocaleDateString() ,"at", dateStamp.toLocaleTimeString()].join(" ");
-  const estimatedArrival = [promisedDate.getDate(),promisedDate.toLocaleString('en-us', {weekday: 'long'}),promisedDate.getFullYear() ].join(" ") ;
 
   return (
     <Box sx={{ minWidth: 275 }}>
@@ -46,7 +50,7 @@ export default function ShipmentDetail() {
     <tr >
       <th scope="row">{shipmentDetail.CurrentStatus.state}</th>
       <td>{timeStamp}</td>
-      <td>{shipmentDetail.CurrentStatus.state}</td>
+      <td>{shipmentDetail.provider}</td>
       <td>{estimatedArrival}</td>
     </tr>
 
