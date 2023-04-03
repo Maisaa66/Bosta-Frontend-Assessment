@@ -11,6 +11,7 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import { FaBoxOpen } from "react-icons/fa";
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import { useSelector } from 'react-redux';
+import { t } from 'i18next';
 
 const QontoConnector = styled(StepConnector)(({ theme, stepper_color }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -91,7 +92,7 @@ QontoStepIcon.propTypes = {
 };
 
 
-const steps = ['Order is created', 'Order recieved from the shipper', 'Order is out for delivery',"Order is deliverd"];
+const steps = ['Order is created', 'Order received from the shipper', 'Order is out for delivery',"Order is delivered"];
 
 export default function ProgressBar() {
   let activeStep=0;
@@ -117,7 +118,7 @@ export default function ProgressBar() {
       <Stepper alternativeLabel activeStep={activeStep} connector={<QontoConnector stepper_color={color}/>}>
         {steps.map((label) => (
           <Step key={label}>
-              <StepLabel StepIconComponent={(props) => <QontoStepIcon {...props} iconsColor={color} />}>{label}</StepLabel>
+              <StepLabel StepIconComponent={(props) => <QontoStepIcon {...props} iconsColor={color} />}>{t(`${label}`)}</StepLabel>
           </Step>
         ))}
       </Stepper>
