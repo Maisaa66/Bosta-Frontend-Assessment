@@ -7,7 +7,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
-import { purple, red } from '@mui/material/colors';
+import {  red } from '@mui/material/colors';
+import { useTranslation } from 'react-i18next'
 
 const ColorButton = styled(Button)(({ theme }) => ({
     color: theme.palette.getContrastText(red[600]),
@@ -22,18 +23,18 @@ const ColorButton = styled(Button)(({ theme }) => ({
   }));
 
 export default function Complain() {
-  const theme = useTheme();
+  const { t } = useTranslation();
 
   return (
     <Card sx={{ display: 'flex', borderRadius:4 , border:"1px solid #eee"}} elevation={0}>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <CardContent sx={{ flex: '1 0 auto' , mx:2, textAlign:"center"}}>
           <Typography component="div" sx={{fontSize:"1.1rem", fontWeight:700}}>
-          Is there a problem with your shipment?
+          {t("Is there a problem with your shipment?")}
           </Typography>
         </CardContent>
         <Box sx={{ display: 'flex', alignItems: 'center',justifyContent:"center", pl: 1, pb: 2 }}>
-        <ColorButton variant="contained" >Report a problem</ColorButton>
+        <ColorButton variant="contained" >{t("Report a problem")}</ColorButton>
         </Box>
       </Box>
       <CardMedia

@@ -27,6 +27,7 @@ let theme = createTheme({
 		},
 	  },
 	},
+	
   });
 
 function App() {
@@ -34,11 +35,13 @@ function App() {
 	const shipmentDetail = useSelector((state)=>state.shipmentDetail);
 
     const { t, i18n } = useTranslation();
-    document.body.dir = i18n.dir();
+    // document.body.dir = i18n.dir();
 	return (
 		<div className="App">
 <ThemeProvider theme={theme}>
-<Navbar></Navbar>
+<div dir={i18n.dir()}>
+	<Navbar></Navbar>
+</div>
     {shipmentDetail && <Home></Home>}
 </ThemeProvider>
 		</div>
