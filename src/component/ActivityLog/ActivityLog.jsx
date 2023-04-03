@@ -8,6 +8,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Typography } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -42,6 +44,32 @@ const rows = [
 ];
 
 export default function ActivityLog() {
+  const [data, setData] = React.useState([])
+  const shipmentDetail = useSelector((state)=>state.shipmentDetail);
+
+  const transitEvents = shipmentDetail.TransitEvents;
+
+  let newData = [];
+  useEffect(()=>{
+    if(shipmentDetail){
+      newData=transitEvents;
+      let previousHub = shipmentDetail.provider;
+      for(let i=0;i<newData.length;i++){
+        if(newData[i].hub){
+          previousHub=newData[i].hub;
+        }
+        else{
+          newData[i].hub=previousHub;
+        }
+      }
+      console.log(newData);
+      setData(newData);
+    }
+  }, [shipmentDetail]);
+
+  console.log(data);
+
+  
   return (
 <>
 
@@ -65,12 +93,13 @@ export default function ActivityLog() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow  key={row.name}>
-              <StyledTableCell >{row.calories}</StyledTableCell>
-              <StyledTableCell >{row.fat}</StyledTableCell>
-              <StyledTableCell >{row.carbs}</StyledTableCell>
-              <StyledTableCell >{row.protein}</StyledTableCell>
+          {data.map((row) => (
+            <StyledTableRow  key={row.timestamp}>
+              <StyledTableCell >{row.hub}</StyledTableCell>
+              <StyledTableCell >{new Date(row.timestamp).toLocaleDateString()}</StyledTableCell>
+              <StyledTableCell >{new Date(row.timestamp).toLocaleTimeString()}</StyledTableCell>
+              <StyledTableCell >{row.state.split("_").join(" ")}</StyledTableCell>
+              {/* <StyledTableCell >{row.protein}</StyledTableCell> */}
             </StyledTableRow>
           ))}
         </TableBody>
