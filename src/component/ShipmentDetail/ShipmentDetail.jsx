@@ -4,21 +4,13 @@ import Card from '@mui/material/Card';
 import "./ShipmentDetail.css"
 import { List, ListItem } from '@mui/material';
 import ProgressBar from '../ProgressBar/ProgressBar';
-import { useDispatch, useSelector } from 'react-redux';
-
-
-
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)'}}
-  >
-    •
-  </Box>
-);
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next'
 
 
 export default function ShipmentDetail() {
+  const { t, i18n } = useTranslation();
+
   const shipmentDetail = useSelector((state)=>state.shipmentDetail);
 
   const dateStamp = new Date(shipmentDetail.CurrentStatus.timestamp);
@@ -32,33 +24,33 @@ export default function ShipmentDetail() {
   const timeStamp =[dateStamp.toLocaleString('en-us', {weekday: 'long'}), dateStamp.toLocaleDateString() ,"at", dateStamp.toLocaleTimeString()].join(" ");
 
   return (
-    <Box sx={{ minWidth: 275 }}>
+    <Box sx={{ minWidth: 275 }} >
       <Card variant="outlined" sx={{ padding:"10px", borderRadius:"15px" }}>
 
       <List>
     <ListItem divider>
-    <table className="table table-borderless divider" >
+    <table className="table table-borderless divider" dir={i18n.dir()}>
       <thead>
     <tr className='text-secondary'>
-      <th scope="col">Shipment No. {shipmentDetail.TrackingNumber}</th>
-      <th scope="col">Last Update </th>
-      <th scope="col">Provider Name </th>
-      <th scope="col">Promise Date</th>
+      <th scope="col">{t("Shipment Number")} {shipmentDetail.TrackingNumber}</th>
+      <th scope="col">{t("Last Update")} </th>
+      <th scope="col">{t("Provider Name")} </th>
+      <th scope="col">{t("Promise Date")}</th>
     </tr>
   </thead>
   <tbody>
     <tr >
-      <th scope="row">{shipmentDetail.CurrentStatus.state}</th>
-      <td>{timeStamp}</td>
-      <td>{shipmentDetail.provider}</td>
-      <td>{estimatedArrival}</td>
+      <th scope="row">{t(`${shipmentDetail.CurrentStatus.state}`)}</th>
+      <td>{t(`${timeStamp}`)}</td>
+      <td>{t(`${shipmentDetail.provider}`)}</td>
+      <td>{t(`${estimatedArrival}`)}</td>
     </tr>
 
   </tbody>
 </table>
 
     </ListItem>
-    <ListItem >
+    <ListItem  >
         <ProgressBar></ProgressBar>
     </ListItem>
 </List>
